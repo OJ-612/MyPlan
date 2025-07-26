@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MyPlan</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #90D897; /* light green */
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Welcome box */
+    .welcome-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .welcome-box {
+      background-color: lightgray;
+      border: 10px solid white;
+      padding: 50px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    /* Bottom nav */
+    .nav-bar {
+      display: flex;
+      justify-content: space-around;
+      background-color: lightgray;
+      border-top: 1px solid #999;
+    }
+
+    .nav-button {
+      flex: 1;
+      padding: 20px 0;
+      text-align: center;
+      border-right: 1px solid #999;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .nav-button:last-child {
+      border-right: none;
+    }
+
+    .nav-button:hover {
+      background-color: #ddd;
+    }
+
+    .nav-button span {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="welcome-container">
+    <div class="welcome-box">
+      Welcome to <br> MyPlan <br>
+      <span style="font-weight: normal;">Select an option to start</span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-button" onclick="window.location.href='/planner';">
+      <span>📅</span>
+      PLANNER
+    </div>
+    <div class="nav-button" onclick="window.location.href='/to-do';">
+      <span>📋</span>
+      TO-DO LIST
+    </div>
+    <div class="nav-button" onclick="window.location.href='/exercise';">
+      <span>🏋️</span>
+      WELL BEING
+    </div>
+  </div>
+
+  <script>
+    function openPlanner() {
+      alert("Planner button clicked");
+      // window.location.href = 'planner.html';
+    }
+
+    function openTodoList() {
+      alert("To-Do List button clicked");
+      // window.location.href = 'todo.html';
+    }
+
+    function openWellBeing() {
+      alert("Well Being button clicked");
+      // window.location.href = 'wellbeing.html';
+    }
+  </script>
+
+</body>
+</html>
