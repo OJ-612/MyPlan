@@ -3,6 +3,7 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.secret_key = "goatifi"
 app.permanent_session_lifetime = timedelta(minutes=5)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
@@ -39,13 +40,24 @@ def todo():
         return redirect(url_for("user", usr=user))
     else:
         return render_template("to-do.html")
+
     
 @app.route("/exercise", methods = ["POST", "GET"])
 def exercise():
     if request.method == "POST":
-        return redirect(url_for("user", usr=user))
-    else:
-        return render_template("exercise.html") 
+        activity_type = request.form.get("activity_type")
+        time = request.form.get("time")
+
+        if activity_type and time:
+            new_task = Task(name=activity_type, start=time)
+            db.session.add(new_task)
+            db.session.commit()
+            flash(f"{activity_type} added at {time}", "info")
+        else:
+            flash("Missing activity type or time", "error")
+        return redirect(url_for("exercise"))
+
+    return render_template("exercise.html")
 
 if __name__ == "__main__":
     app.run(debug=True) 
