@@ -1,6 +1,8 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
+import os
+
 
 app = Flask(__name__)
 app.secret_key = "goatifi"
@@ -9,6 +11,9 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'tasks.db')
+
 db = SQLAlchemy(app)
 
 class Task(db.Model):
@@ -16,6 +21,10 @@ class Task(db.Model):
     name = db.Column(db.String(100), nullable=False)
     start = db.Column(db.String(20))
     finish = db.Column(db.String(20))
+
+with app.app_context():
+    db.create_all()
+
 
 def create_tables():
     db.create_all()
@@ -37,10 +46,20 @@ def planner():
 @app.route("/to-do", methods = ["POST", "GET"])
 def todo():
     if request.method == "POST":
-        return redirect(url_for("user", usr=user))
-    else:
-        return render_template("to-do.html")
-
+        name = request.form.get("name")
+        start = request.form.get("start")
+        finish = request.form.get("finish")
+        if name:
+            new_task = Task(name=name, start=start, finish=finish)
+            db.session.add(new_task)
+            db.session.commit()
+            flash("Task added successfully", "info")
+        else:
+            flash("Task name is required", "error")
+        return redirect(url_for("todo"))
+   
+    tasks = Task.query.all()
+    return render_template("to-do.html", tasks=tasks)
     
 @app.route("/exercise", methods = ["POST", "GET"])
 def exercise():
