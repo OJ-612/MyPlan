@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Planner</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            background: #d3d3d3;
+            padding: 10px 20px;
+            font-size: 32px;
+            border-bottom: 2px solid black;
+        }
+
+        .header .home-btn {
+            font-size: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .header .title {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            flex: 1;
+        }
+
+        thead {
+            background-color: #d3d3d3;
+        }
+
+        th, td {
+            border: 1px solid black;
+            font-size: 35px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        tbody tr {
+            background-color: #90D897;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        /* FOOTER */
+        .footer {
+            display: flex;
+            background: #d3d3d3;
+            border-top: 2px solid black;
+        }
+
+        .footer button {
+            flex: 1;
+            font-size: 40px;
+            background: none;
+            border: none;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid black;
+        }
+
+        .footer button:last-child {
+            border-right: none;
+        }
+
+        .footer span {
+            font-size: 20px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <button class="home-btn" onclick="window.location.href='/';">🏠</button>
+    <div class="title">Task</div>
+</div>
+
+<!-- TASK TABLE -->
+<table>
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Start</th>
+            <th>Finish</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for task in tasks %}
+  <tr>
+    <td>{{ task.name }}</td>
+    <td>{{ task.start }}</td>
+    <td>{{ task.finish }}</td>
+  </tr>
+  {% endfor %}
+
+  <!-- Row for adding a new task -->
+  <tr>
+    <form method="POST" style="display: contents;">
+      <td><input name="name" placeholder="Task name" required style="width: 95%; padding: 8px;" /></td>
+      <td><input type="time" name="start" style="width: 95%; padding: 8px;" /></td>
+      <td><input type="time" name="finish" style="width: 95%; padding: 8px;" /></td>
+    </form>
+  </tr>
+</tbody>
+
+
+
+</table>
+
+<div style="padding: 10px; background: #d3d3d3; text-align: center;">
+  <button type="submit" form="add-task-form" style="padding: 10px 20px; font-size: 18px;">Save Task</button>
+</div>
+
+</body>
+</html>
