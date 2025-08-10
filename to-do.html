@@ -45,6 +45,7 @@
             width: 100%;
             border-collapse: collapse;
             flex: 1;
+            background-color: #90D897;
         }
 
         thead {
@@ -110,20 +111,34 @@
 <!-- TASK TABLE -->
 <table>
     <thead>
-        <tr>
-            <th>Task</th>
-            <th>Start</th>
-            <th>Finish</th>
-        </tr>
+    <tr>
+        <th>Task</th>
+        <th>Start</th>
+        <th>Finish</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
   {% for task in tasks %}
-  <tr>
+<tr>
     <td>{{ task.name }}</td>
     <td>{{ task.start }}</td>
     <td>{{ task.finish }}</td>
-  </tr>
-  {% endfor %}
+    <td>
+        <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" style="display:inline;">
+    <button type="submit" style="
+        background: #d3d3d3;
+        border: 25px;
+        color: red;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 10px;
+    ">Delete</button>
+</form>
+
+    </td>
+</tr>
+{% endfor %}
 
   <!-- Row for adding a new task -->
   <tr>
@@ -139,9 +154,6 @@
 
 </table>
 
-<div style="padding: 10px; background: #d3d3d3; text-align: center;">
-  <button type="submit" form="add-task-form" style="padding: 10px 20px; font-size: 18px;">Save Task</button>
-</div>
 
 </body>
 </html>
