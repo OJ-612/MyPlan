@@ -78,5 +78,14 @@ def exercise():
 
     return render_template("exercise.html")
 
+@app.route("/delete/<int:task_id>", methods=["POST"])
+def delete_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    flash(f"Task '{task.name}' deleted.", "info")
+    return redirect(url_for("todo"))
+
+
 if __name__ == "__main__":
     app.run(debug=True) 
