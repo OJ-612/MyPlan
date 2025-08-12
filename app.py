@@ -49,6 +49,7 @@ def todo():
         name = request.form.get("name")
         start = request.form.get("start")
         finish = request.form.get("finish")
+        
         if name:
             new_task = Task(name=name, start=start, finish=finish)
             db.session.add(new_task)
@@ -65,13 +66,14 @@ def todo():
 def exercise():
     if request.method == "POST":
         activity_type = request.form.get("activity_type")
-        time = request.form.get("time")
+        start = request.form.get("start")
+        finish = request.form.get("finish")
 
-        if activity_type and time:
-            new_task = Task(name=activity_type, start=time)
+        if activity_type:
+            new_task = Task(name=activity_type, start=start, finish=finish)
             db.session.add(new_task)
             db.session.commit()
-            flash(f"{activity_type} added at {time}", "info")
+            flash("Task added successfully", "info")
         else:
             flash("Missing activity type or time", "error")
         return redirect(url_for("exercise"))
