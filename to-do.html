@@ -115,7 +115,8 @@
         <th>Task</th>
         <th>Start</th>
         <th>Finish</th>
-        <th>Actions</th>
+        <th>Duration (min)</th>
+        <th>Delete Task</th>
     </tr>
     </thead>
     <tbody>
@@ -124,7 +125,10 @@
     <td>{{ task.name }}</td>
     <td>{{ task.start }}</td>
     <td>{{ task.finish }}</td>
+    <td>{{ task.duration if task.duration else '' }}</td>
+
     <td>
+        
         <form method="POST" action="{{ url_for('delete_task', task_id=task.id) }}" style="display:inline;">
     <button type="submit" style="
         background: #d3d3d3;
