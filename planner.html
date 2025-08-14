@@ -70,6 +70,7 @@
             flex: 1;
             display: flex;
             border: 1px solid #d3d3d3;
+            background-color: #90D897;
         }
         .time {
             width: 15%;
@@ -96,45 +97,30 @@
     <button class="icon-button" onclick="window.location.href='/to-do';">☰</button>
 </div>
 
-<div class="container">
-    <div class="task-list">
-        <h3></h3>
-        <p><br></p>
-
-        <h3></h3>
-        <p><br></p>
-
-        <h3></h3>
-        <p><br></p>
+<div style="display: flex;">
+    <!-- Left side: description -->
+    <div style="flex: 1; padding: 20px; border-right: 1px solid #ccc;">
+        <h3>Task Description</h3>
+        {% if selected_task %}
+            <p>{{ selected_task.description or "No description available." }}</p>
+        {% else %}
+            <p>Select a task to view its description.</p>
+        {% endif %}
     </div>
 
-    <div class="schedule">
-        <div class="date-nav">
-            <span>8th June 2025</span>
-            <div class="arrow-buttons">
-                <button class="arrow-button" onclick="alert('Previous day')">←</button>
-                <button class="arrow-button" onclick="alert('Next day')">→</button>
+    <!-- Right side: task list -->
+    <div class="schedule" style="flex: 2;">
+        {% for task in tasks %}
+        <div class="time-block">
+            <div class="time">{{ task.start }}</div>
+            <div class="activity">
+                <a href="{{ url_for('planner', task_id=task.id) }}">{{ task.name }}</a>
             </div>
         </div>
-
-        <div class="time-block">
-            <div class="time">3 PM</div>
-            <div class="activity"></div>
-        </div>
-        <div class="time-block">
-            <div class="time">4 PM</div>
-            <div class="activity"></div>
-        </div>
-        <div class="time-block">
-            <div class="time">5 PM</div>
-            <div class="activity"></div>
-        </div>
-        <div class="time-block">
-            <div class="time">6 PM</div>
-            <div class="activity"></div>
-        </div>
+        {% endfor %}
     </div>
 </div>
+
 
 </body>
 </html>
