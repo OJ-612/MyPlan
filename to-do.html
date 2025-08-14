@@ -115,8 +115,8 @@
         <th>Task</th>
         <th>Start</th>
         <th>Finish</th>
-        <th>Duration (min)</th>
-        <th>Delete Task</th>
+        <th>Description</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -125,7 +125,7 @@
     <td>{{ task.name }}</td>
     <td>{{ task.start }}</td>
     <td>{{ task.finish }}</td>
-    <td>{{ task.duration if task.duration else '' }}</td>
+    <td>{{ task.description }}</td>
 
     <td>
         
@@ -146,10 +146,14 @@
 
   <!-- Row for adding a new task -->
   <tr>
-    <form method="POST" style="display: contents;">
+    <form method="POST" style="display: contents;" action="/to-do">
       <td><input name="name" placeholder="Task name" required style="width: 95%; padding: 8px;" /></td>
       <td><input type="time" name="start" style="width: 95%; padding: 8px;" /></td>
       <td><input type="time" name="finish" style="width: 95%; padding: 8px;" /></td>
+      <td><input type="text"name="description" placeholder="Description"style="width: 95%; padding: 8px;" /></td>
+      <td>
+        <button type="submit">Add Task</button>
+    </td>
     </form>
   </tr>
 </tbody>
