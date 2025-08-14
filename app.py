@@ -3,7 +3,6 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-
 app = Flask(__name__)
 app.secret_key = "goatifi"
 app.permanent_session_lifetime = timedelta(minutes=5)
@@ -21,13 +20,28 @@ class Task(db.Model):
     name = db.Column(db.String(100), nullable=False)
     start = db.Column(db.String(20))
     finish = db.Column(db.String(20))
+    description = db.Column(db.String(100))
 
 with app.app_context():
     db.create_all()
 
-
 def create_tables():
     db.create_all()
+
+with app.app_context():
+    # create table if missing
+    db.create_all()
+
+    # check and add description column if needed
+    conn = db.engine.raw_connection()
+    cursor = conn.cursor()
+    cursor.execute("PRAGMA table_info(task)")
+    cols = [row[1] for row in cursor.fetchall()]
+    if "description" not in cols:
+        cursor.execute("ALTER TABLE task ADD COLUMN description STRING")
+        conn.commit()
+    cursor.close()
+    conn.close()
 
 @app.route("/", methods = ["POST", "GET"])
 def home():
@@ -36,12 +50,17 @@ def home():
     else:
         return render_template("home.html")
     
-@app.route("/planner", methods = ["POST", "GET"])
+@app.route("/planner", methods=["GET"])
 def planner():
-    if request.method == "POST":
-        return redirect(url_for("user", usr=user))
-    else:
-        return render_template("planner.html")
+    task_id = request.args.get("task_id")
+    tasks = Task.query.order_by(Task.start).all()
+    selected_task = None
+
+    if task_id:
+        selected_task = Task.query.get(task_id)
+
+    return render_template("planner.html", tasks=tasks, selected_task=selected_task)
+
     
 @app.route("/to-do", methods = ["POST", "GET"])
 def todo():
@@ -49,15 +68,17 @@ def todo():
         name = request.form.get("name")
         start = request.form.get("start")
         finish = request.form.get("finish")
+        description = request.form.get("description")
         
         if name:
-            new_task = Task(name=name, start=start, finish=finish)
+            new_task = Task(name=name, start=start, finish=finish, description=description)
             db.session.add(new_task)
             db.session.commit()
             flash("Task added successfully", "info")
         else:
             flash("Task name is required", "error")
         return redirect(url_for("todo"))
+
    
     tasks = Task.query.all()
     return render_template("to-do.html", tasks=tasks)
