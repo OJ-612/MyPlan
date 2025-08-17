@@ -7,6 +7,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #90D897;
         }
         .header {
             background-color: #d3d3d3;
@@ -44,6 +45,7 @@
             width: 70%;
             display: flex;
             flex-direction: column;
+            background-color: #90D897;
         }
         .date-nav {
             background-color: #d3d3d3;
@@ -79,6 +81,7 @@
             justify-content: center;
             font-weight: bold;
             border-right: 1px solid #d3d3d3;
+            background-color: #d3d3d3;
         }
         .activity {
             width: 85%;
@@ -99,7 +102,7 @@
 
 <div style="display: flex;">
     <!-- Left side: description -->
-    <div style="flex: 1; padding: 20px; border-right: 1px solid #ccc;">
+    <div style="flex: 1; padding: 20px; border-right: 1px solid #ccc; background-color: #90D897;">
         <h3>Task Description</h3>
         {% if selected_task %}
             <p>{{ selected_task.description or "No description available." }}</p>
@@ -113,6 +116,7 @@
         {% for task in tasks %}
         <div class="time-block">
             <div class="time">{{ task.start }}</div>
+            <div class="time">{{ task.finish }}</div>
             <div class="activity">
                 <a href="{{ url_for('planner', task_id=task.id) }}">{{ task.name }}</a>
             </div>
