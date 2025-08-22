@@ -4,24 +4,26 @@
   <meta charset="UTF-8">
   <title>Well Being</title>
   <style>
+    /* Overall page styling */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #90D897; /* light green */
-      height: 100vh;
+      background-color: #90D897; /* light green background for wellbeing theme */
+      height: 100vh; /* full height viewport */
       display: flex;
-      flex-direction: column;
+      flex-direction: column; /* stack header and content vertically */
     }
 
-    /* Header */
+    /* Header bar at the top */
     .header {
       background-color: lightgray;
       padding: 10px 20px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-between; /* space between home button and title */
     }
 
+    /* Home button (🏠) in header */
     .home-button {
       background: none;
       border: none;
@@ -29,31 +31,34 @@
       cursor: pointer;
     }
 
+    /* Title in the header, centered */
     .title {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      position: absolute; /* take out of flow */
+      left: 50%; /* center horizontally */
+      transform: translateX(-50%); /* exact center */
       font-size: 28px;
       font-weight: bold;
     }
 
     /* Main content area */
     .content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+      flex: 1; /* take remaining space */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
 
-.box-container {
-  display: flex;
-  justify-content: center;
-  transform: translateY(+50%);
-  align-items: center;
-  gap: 20px;
-}
+    /* Container for input boxes */
+    .box-container {
+      display: flex;
+      justify-content: center;
+      transform: translateY(+50%); /* move form lower down */
+      align-items: center;
+      gap: 20px; /* space between boxes */
+    }
 
+    /* Styling for each box */
     .box {
       background-color: lightgray;
       padding: 40px 20px;
@@ -63,12 +68,14 @@
       border: 1px solid black;
     }
 
+    /* Style for time inputs */
     .box input[type="time"] {
       padding: 8px;
       width: 100%;
       box-sizing: border-box;
     }
 
+    /* Submit button styling */
     .box button {
       padding: 10px;
       margin-top: 10px;
@@ -80,6 +87,7 @@
       color: white;
     }
 
+    /* Button hover effect */
     .box button:hover {
       background-color: #222;
     }
@@ -87,46 +95,49 @@
 </head>
 <body>
 
+  <!-- Header with home button and title -->
   <div class="header">
+    <!-- Home button sends user back to "/" -->
     <button class="home-button" onclick="window.location.href='/';">🏠</button>
     <div class="title">Well Being</div>
   </div>
 
- <div class="box-container">
-  <form method="POST" action="/exercise" style="display: flex; gap: 20px;">
+  <!-- Form for adding exercise/mental break tasks -->
+  <div class="box-container">
+    <!-- POST request to /exercise route in Flask -->
+    <form method="POST" action="/exercise" style="display: flex; gap: 20px;">
 
-    <div class="box">
-      <div><strong>Activity</strong></div>
-      <select name="activity_type" required>
-        <option value="">-- Select --</option>
-        <option value="Exercise">Physical Exercise</option>
-        <option value="Mental Break">Mental Break</option>
-      </select>
-    </div>
+      <!-- Activity selection -->
+      <div class="box">
+        <div><strong>Activity</strong></div>
+        <select name="activity_type" required>
+          <option value="">-- Select --</option>
+          <option value="Exercise">Physical Exercise</option>
+          <option value="Mental Break">Mental Break</option>
+        </select>
+      </div>
 
-    <div class="box">
-      <div><strong>Start Time</strong></div>
-      <input type="time" name="start" required>
-    </div>
+      <!-- Start time input -->
+      <div class="box">
+        <div><strong>Start Time</strong></div>
+        <input type="time" name="start" required>
+      </div>
 
-    <div class="box">
-      <div><strong>Finish Time </strong></div>
-      <input type="time" name="finish" required>
-    </div>
+      <!-- Finish time input -->
+      <div class="box">
+        <div><strong>Finish Time </strong></div>
+        <input type="time" name="finish" required>
+      </div>
 
-    <div class="box" style="align-self: flex-end;">
-      <button type="submit">Add</button>
-    </div>
+      <!-- Submit button -->
+      <div class="box" style="align-self: flex-end;">
+        <button type="submit">Add</button>
+      </div>
 
-  </form>
-</div>
-
-
+    </form>
+  </div>
 
 </body>
 </html>
 
-
-</body>
-</html>
 

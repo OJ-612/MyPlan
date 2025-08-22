@@ -1,0 +1,104 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MyPlan</title>
+  <style>
+    /* Page layout */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #90D897; /* light green background */
+      display: flex;
+      flex-direction: column; /* stack welcome + nav vertically */
+      height: 100vh; /* full screen height */
+    }
+
+    /* Container for the welcome box, centered vertically */
+    .welcome-container {
+      flex: 1; /* take remaining space above nav */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Gray welcome box with white border */
+    .welcome-box {
+      background-color: lightgray;
+      border: 10px solid white;
+      padding: 50px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    /* Bottom navigation bar */
+    .nav-bar {
+      display: flex;
+      justify-content: space-around;
+      background-color: lightgray;
+      border-top: 1px solid #999;
+    }
+
+    /* Navigation button styling */
+    .nav-button {
+      flex: 1; /* each button takes equal width */
+      padding: 20px 0;
+      text-align: center;
+      border-right: 1px solid #999;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Remove right border for the last button */
+    .nav-button:last-child {
+      border-right: none;
+    }
+
+    /* Hover effect for nav buttons */
+    .nav-button:hover {
+      background-color: #ddd;
+    }
+
+    /* Icon (emoji) styling inside nav buttons */
+    .nav-button span {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Welcome message in the center -->
+  <div class="welcome-container">
+    <div class="welcome-box">
+      Welcome to <br> MyPlan <br>
+      <span style="font-weight: normal;">Select an option to start</span>
+    </div>
+  </div>
+
+  <!-- Bottom navigation bar with 3 buttons -->
+  <div class="nav-bar">
+    <!-- Planner button -->
+    <div class="nav-button" onclick="window.location.href='/planner';">
+      <span>📅</span>
+      PLANNER
+    </div>
+
+    <!-- To-Do List button -->
+    <div class="nav-button" onclick="window.location.href='/to-do';">
+      <span>📋</span>
+      TO-DO LIST
+    </div>
+
+    <!-- Well Being button -->
+    <div class="nav-button" onclick="window.location.href='/exercise';">
+      <span>🏋️</span>
+      WELL BEING
+    </div>
+  </div>
+
+
+</body>
+</html>
